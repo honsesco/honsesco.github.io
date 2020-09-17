@@ -1,7 +1,3 @@
-/*
-    What are you doing here?
-*/
-
 const fieldInput = document.getElementById('input')
 const fieldOutput = document.getElementById('output')
 const variables = document.querySelector('.variables-set')
