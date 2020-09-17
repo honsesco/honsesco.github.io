@@ -181,7 +181,9 @@ function parseFunction(input) {
         if (name == "IF") {
             let list = parseComplexList(getFunctionContent(input));
             if (list.length != 3) return "error";
-            let condition = parseFunction(list[0]);
+            let condition = list[0]
+            if (isBoolean(condition)) return "error"
+            condition = parseFunction(condition)
             return condition == "true" ? parseFunction(list[1]) : condition == "false" ? parseFunction(list[2]) : "error";
         } else if (name == "EQ") {
             let list = parseSimpleList(getFunctionContent(input));
