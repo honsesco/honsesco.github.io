@@ -1,0 +1,82 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    min-width: 550px;
+}
+
+#wrapper {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.input {
+    padding-bottom: 12px;
+}
+
+.input-output {
+    padding: 10px;
+}
+
+input {
+    max-width: 600px;
+    width: 80%;
+    font-size: 16px;
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: 36px;
+}
+
+button {
+    padding: 8px 20px;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    color: #000;
+    border: 2px solid #e7e7e7;
+    border-radius: 3px;
+}
+
+button:hover {
+    background-color: #fff;
+}
+
+.output p {
+    float: left;
+    margin: 0 10px 0 0;
+    padding: 10px 0;
+}
+
+.variables {
+    max-width: 600px;
+    margin-left: 10px;
+}
+
+.variables-set {
+    overflow: auto;
+    max-height: 500px;
+}
+
+[class^="variable-"] input {
+    max-width: 120px;
+}
+
+[class^="variable-"] p:nth-child(1) {
+    padding-right: 6px;
+}
+
+[class^="variable-"] p:nth-child(3) {
+    margin-left: 20px;
+    padding-right: 6px;
+}
+
+[class^="variable-"] button {
+    padding: 8px 16px;
+    margin-left: 10px;
+}
+
+[class^="variable"] p {
+    display: inline-block;
+}
