@@ -161,7 +161,12 @@ function getFunctionName(input) {
 function isFunction(name) {
     let a = name.indexOf("(");
     let b = name.indexOf(")");
-    return a != -1 && b != -1 && a < b && functions.includes(name.substring(0, a).trim());
+    if (a != -1 && b != -1 && a < b) {
+      let fun = name.substring(0, a).trim()
+      if (fun.startsWith('=')) fun = fun.substring(1)
+      return functions.includes(fun)
+    }
+    return false;
 }
 
 function hasCode(input, start) {
@@ -173,7 +178,7 @@ function hasCode(input, start) {
 function parseFunction(input) {
     if (isFunction(input)) {
         let name = getFunctionName(input);
-
+        if (name.startsWith('=')) name = name.substring(1)
         if (name == "IF") {
             let list = parseComplexList(getFunctionContent(input));
             if (list.length != 3) return "error";
