@@ -61,8 +61,8 @@ function setValue(key) {
     return values.get(key);
 }
 
-function parseInt(toParse) {
-    return Number.parseInt(toParse)
+function parseNumber(toParse) {
+    return Number(toParse)
 }
 
 function setValue(key, value) {
@@ -89,8 +89,8 @@ function isBoolean(str) {
     return str == "true" || str == "false";
 }
 
-function isInteger(str) {
-    return !isNaN(str) && parseInt(Number(str)) == str && !isNaN(parseInt(str, 10));
+function isNumber(str) {
+    return !isNaN(str)
 }
 
 function isString(str) {
@@ -180,47 +180,47 @@ function parseFunction(input) {
             let condition = list[0]
             if (isBoolean(condition)) return "error"
             condition = parseFunction(condition)
-            return condition == "true" ? parseFunction(list[1]) : condition == "false" ? parseFunction(list[2]) : "error";
+            return condition === "true" ? parseFunction(list[1]) : condition === "false" ? parseFunction(list[2]) : "error";
         } else if (name == "EQ") {
             let list = parseSimpleList(getFunctionContent(input));
             if (list.length != 2) return "error";
             let value1 = getIfExists(list[0]);
             let value2 = getIfExists(list[1]);
-            return value1 == value2;
+            return String(value1 == value2);
         } else if (name == "NE") {
             let list = parseSimpleList(getFunctionContent(input));
             if (list.length != 2) return "error";
             let value1 = getIfExists(list[0]);
             let value2 = getIfExists(list[1]);
-            return value1 != value2;
+            return String(value1 != value2);
         } else if (name == "LTEQ") {
             let list = parseSimpleList(getFunctionContent(input));
             if (list.length != 2) return "error";
             let sValue1 = getIfExists(list[0]);
             let sValue2 = getIfExists(list[1]);
-            if (!isInteger(sValue1) || !isInteger(sValue2)) return "error";
-            return parseInt(sValue1) <= parseInt(sValue2);
+            if (!isNumber(sValue1) || !isNumber(sValue2)) return "error";
+            return String(parseNumber(sValue1) <= parseNumber(sValue2));
         } else if (name == "LT") {
             let list = parseSimpleList(getFunctionContent(input));
             if (list.length != 2) return "error";
             let sValue1 = getIfExists(list[0]);
             let sValue2 = getIfExists(list[1]);
-            if (!isInteger(sValue1) || !isInteger(sValue2)) return "error";
-            return parseInt(sValue1) < parseInt(sValue2);
+            if (!isNumber(sValue1) || !isNumber(sValue2)) return "error";
+            return String(parseNumber(sValue1) < parseNumber(sValue2));
         } else if (name == "GTEQ") {
             let list = parseSimpleList(getFunctionContent(input));
             if (list.length != 2) return "error";
             let sValue1 = getIfExists(list[0]);
             let sValue2 = getIfExists(list[1]);
-            if (!isInteger(sValue1) || !isInteger(sValue2)) return "error";
-            return parseInt(sValue1) >= parseInt(sValue2);
+            if (!isNumber(sValue1) || !isNumber(sValue2)) return "error";
+            return String(parseNumber(sValue1) >= parseNumber(sValue2));
         } else if (name == "GT") {
             let list = parseSimpleList(getFunctionContent(input));
             if (list.length != 2) return "error";
             let sValue1 = getIfExists(list[0]);
             let sValue2 = getIfExists(list[1]);
-            if (!isInteger(sValue1) || !isInteger(sValue2)) return "error";
-            return parseInt(sValue1) > parseInt(sValue2);
+            if (!isNumber(sValue1) || !isNumber(sValue2)) return "error";
+            return String(parseNumber(sValue1) > parseNumber(sValue2));
         } else if (name == "CONCAT") {
             let list = parseComplexList(getFunctionContent(input));
             let sb = "";
@@ -235,8 +235,8 @@ function parseFunction(input) {
             if (list.length != 2) return "error";
             let sValue1 = getIfExists(list[0]);
             let sValue2 = getIfExists(list[1]);
-            if (!isInteger(sValue1) || !isInteger(sValue2)) return "error";
-            return parseInt(sValue1) + parseInt(sValue2);
+            if (!isNumber(sValue1) || !isNumber(sValue2)) return "error";
+            return String(parseNumber(sValue1) + parseNumber(sValue2));
         } else if (name == "AND") {
             let list = parseComplexList(getFunctionContent(input));
             if (list.length == 0) return "error";
@@ -287,8 +287,8 @@ function parseFunction(input) {
             if (list.length != 2) return "error";
             let sValue1 = getIfExists(list[0]);
             let sValue2 = getIfExists(list[1]);
-            if (!isInteger(sValue1) || !isInteger(sValue2)) return "error";
-            return parseInt(sValue1) / parseInt(sValue2);
+            if (!isNumber(sValue1) || !isNumber(sValue2)) return "error";
+            return String(parseNumber(sValue1) / parseNumber(sValue2));
         } else if (name == "JOIN") {
             let list = parseComplexList(getFunctionContent(input));
             if (list.length < 2) return "error";
@@ -303,22 +303,22 @@ function parseFunction(input) {
             if (list.length != 2) return "error";
             let sValue1 = getIfExists(list[0]);
             let sValue2 = getIfExists(list[1]);
-            if (!isInteger(sValue1) || !isInteger(sValue2)) return "error";
-            return parseInt(sValue1) * parseInt(sValue2);
+            if (!isNumber(sValue1) || !isNumber(sValue2)) return "error";
+            return String(parseNumber(sValue1) * parseNumber(sValue2));
         } else if (name == "MOD") {
             let list = parseSimpleList(getFunctionContent(input));
             if (list.length != 2) return "error";
             let sValue1 = getIfExists(list[0]);
             let sValue2 = getIfExists(list[1]);
-            if (!isInteger(sValue1) || !isInteger(sValue2)) return "error";
-            return parseInt(sValue1) % parseInt(sValue2);
+            if (!isNumber(sValue1) || !isNumber(sValue2)) return "error";
+            return String(parseNumber(sValue1) % parseNumber(sValue2));
         } else if (name == "SUB") {
             let list = parseSimpleList(getFunctionContent(input));
             if (list.length != 2) return "error";
             let sValue1 = getIfExists(list[0]);
             let sValue2 = getIfExists(list[1]);
-            if (!isInteger(sValue1) || !isInteger(sValue2)) return "error";
-            return parseInt(sValue1) - parseInt(sValue2);
+            if (!isNumber(sValue1) || !isNumber(sValue2)) return "error";
+            return String(parseNumber(sValue1) - parseNumber(sValue2));
         } else if (name == "TRUE") {
             return "true";
         } else if (name == "FALSE") {
