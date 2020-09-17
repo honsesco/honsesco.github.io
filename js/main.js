@@ -345,16 +345,6 @@ function getFunctionBody(input, start) {
     while (input.length > current) {
         let symbol = input.charAt(current);
 
-        // for special chars
-        if (symbol == '\\') {
-            if (current + 1 == input.length) return "error";
-
-            let specialChar = input.charAt(current + 1);
-            if (!isSpecialChar(specialChar)) current--;
-            current += 2;
-            continue;
-        }
-
         if (symbol == '\'') a++;
         else if (symbol == '{') ba++;
         else if (symbol == '}') bb++;
