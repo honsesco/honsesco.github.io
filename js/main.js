@@ -394,12 +394,12 @@ function getFunctionBody(input, start) {
 }
 
 function parseSimpleList(input) {
-    let list = [];
+    let list = []
     let l = input.split(',')
     for (let i = 0; i < l.length; i++) {
         list.push(l[i].trim());
     }
-    return list;
+    return list
 }
 
 function parseComplexList(input) {
