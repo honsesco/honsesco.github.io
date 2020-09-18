@@ -257,7 +257,7 @@ function parseFunction(input) {
             let functionContent = getFunctionContent(input);
             if (isBoolean(functionContent)) return "error";
             let parsed = parseFunction(functionContent);
-            return isBoolean(parsed) ? parsed !== 'true' : "error";
+            return isBoolean(parsed) ? String(parsed !== 'true') : "error";
         } else if (name == "OR") {
             let list = parseComplexList(getFunctionContent(input));
             if (list.length == 0) return "error";
@@ -278,9 +278,7 @@ function parseFunction(input) {
             }
             return "false";
         } else if (name == "STARTSWITH") {
-
             let list = parseSimpleList(getFunctionContent(input));
-
             if (list.length <= 1) return "error";
             let value = parseFunction(list[0]);
             for (let i = 1; i < list.length; i++) {
