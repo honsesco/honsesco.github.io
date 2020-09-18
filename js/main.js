@@ -94,9 +94,10 @@ function isNumber(str) {
 }
 
 function isString(str) {
+    str = str.trim()
     let a = str.indexOf("'");
     let b = str.lastIndexOf("'");
-    return a != -1 && b != -1 && a < b;
+    return a == 0 && b + 1 == str.length && a < b;
 }
 
 function getStringContent(str) {
