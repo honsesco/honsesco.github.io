@@ -116,24 +116,20 @@ function getStringContent(str) {
 }
 
 function parse(input) {
-  console.log('');
     return parseCode(input);
 }
 
 function parseCode(input) {
     if (hasCode(input, 0)) {
-      console.log('hasCode:', input);
         let result = "";
         let current = input.indexOf("{");
         if (current > 0) result += input.substring(0, current)
 
         while (hasCode(input, current)) {
             let code = getFunctionBody(input, current);
-            console.log('FunctionBody:', code);
             if (code == "error") return "error";
             let codeContent = getCodeContent(code);
             let parsedCode = parseFunction(codeContent);
-            console.log('ParsedCode:', parsedCode);
             if (parsedCode == "error") return "error";
 
             if (codeContent == parsedCode) {
@@ -238,7 +234,6 @@ function parseFunction(input) {
           if (list.length != 2) return "error";
           let sValue1 = getIfExists(list[0]);
           let sValue2 = getIfExists(list[1]);
-          console.log(sValue1, sValue2);
           if (!isNumber(sValue1) || !isNumber(sValue2)) return "error";
           return String(parseNumber(sValue1) > parseNumber(sValue2));
       } else if (name == "CONCAT") {
@@ -378,7 +373,6 @@ function getFunctionBody(input, start) {
         else if (symbol == ')') cb++;
         else if (symbol == ',' && a >= 0 && ba >= 0 && ca >= 0 && ba == bb && ca == cb &&
             (stringChar == 0 || stringChar == 1 && a % 2 == 0 || stringChar == 2 && d % 2 == 0)) {
-              console.log('111111111');
           return input.substring(start, current);
         } else {
             current++;
@@ -387,7 +381,6 @@ function getFunctionBody(input, start) {
 
         if (a >= 0 && ba >= 0 && ca >= 0 && ba == bb && ca == cb &&
             (stringChar == 0 || stringChar == 1 && a % 2 == 0 || stringChar == 2 && d % 2 == 0)) {
-              console.log('2222222');
           return input.substring(start, current + 1);
         }
 
@@ -395,7 +388,6 @@ function getFunctionBody(input, start) {
     }
     if (a >= 0 && ba >= 0 && ca >= 0 && ba == bb && ca == cb &&
         (stringChar == 0 || stringChar == 1 && a % 2 == 0 || stringChar == 2 && d % 2 == 0)) {
-          console.log('333333');
       return input.substring(start);
     }
     return "error";
