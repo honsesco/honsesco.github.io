@@ -1,33 +1,96 @@
 const fieldInput = document.getElementById('input')
-const fieldOutput = document.getElementById('output')
+const fieldOutput = document.querySelector('#result')
 const variables = document.querySelector('.variables-set')
 let countOfValues = 1;
 
-let parseHandler = () => {
+const parseHandler = () => {
     collectVariables()
-    let text = fieldInput.value;
-    let result = parse(text.trim());
-    if (result == 'error') result = text;
-    fieldOutput.value = result;
+    let text = fieldInput.value
+    let result = parse(text.trim())
+    if (result == 'error') {
+        result = text;
+    } else {
+        result = colorize(result)
+    }
+    fieldOutput.innerHTML = result
 }
 
-let addValueHandler = () => {
+const addValueHandler = () => {
     let value = document.createElement('div')
     value.className = 'variable-' + countOfValues
-    value.innerHTML = '<p>key:</p><input class="variable-key" type="text" placeholder="amount"><p>value:</p><input class="variable-value" type="text" placeholder="1"><button onclick="removeVariable(\'' + countOfValues + '\');" title="Remove value">X</button>'
+    value.innerHTML = '<div class="key"><p>key:</p> <input class="variable-key" type="text" placeholder="amount"></div><div class="value"><p>value:</p> <input class="variable-value" type="text" placeholder="1"><button  onclick="removeVariable(\'' + countOfValues + '\');">X</button></div>'
     variables.append(value)
     countOfValues++
 }
 
 function collectVariables() {
-    values.clear()
-    var list = document.querySelectorAll('.variables-set > [class^="variable-"');
+    clearValues()
+    let list = document.querySelectorAll('.variables-set > [class^="variable-"');
     for (let i = 0; i < list.length; i++) {
         let key = list[i].querySelector('.variable-key').value;
         let value = list[i].querySelector('.variable-value').value;
         if (key.length > 0 && value.length > 0) {
-            values.set(key, value)
+            setValue(key, value)
         }
+    }
+}
+
+function colorize(str) {
+    let current = str.indexOf('&')
+    if (current == -1) return str
+    let result = str.substring(0, current)
+    let amountOfResets = 0;
+
+    while (current != -1) {
+        if (current >= str.length) break;
+        let color = str.charAt(current + 1)
+        let style = getStyleByColor(color)
+
+        if (style == '') { // invalid color code
+            result += str.indexOf("&", current + 2) == -1 ? str.substring(current) : str.substring(current, str.indexOf("&", current + 2))
+        } else if (style == 'r') {// reset colors
+            for (let i = 0; i < amountOfResets; i++) result += '</span>'
+            amountOfResets = 0
+            result += str.indexOf("&", current + 2) == -1 ? str.substring(current + 2) : str.substring(current + 2, str.indexOf("&", current + 2))
+        } else { // valid color code
+            result += '<span style=\"' + style + '\">' + (str.indexOf("&", current + 2) == -1 ? str.substring(current + 2) : str.substring(current + 2, str.indexOf("&", current + 2)))
+            amountOfResets++;
+        }
+
+        if (str.indexOf("&", current + 1) == -1) {
+            result.substring(current + 2)
+            break;
+        }
+        current = str.indexOf("&", current + 1)
+    }
+    for (let i = 0; i < amountOfResets; i++) result += '</span>'
+    return result;
+  }
+  
+function getStyleByColor(id) {
+    switch(id) {
+        case '0': return 'color: #000000;'
+        case '1': return 'color: #0000AA;'
+        case '2': return 'color: #00AA00;'
+        case '3': return 'color: #00AAAA;'
+        case '4': return 'color: #AA0000;'
+        case '5': return 'color: #AA00AA;'
+        case '6': return 'color: #FFAA00;'
+        case '7': return 'color: #AAAAAA;'
+        case '8': return 'color: #555555;'
+        case '9': return 'color: #5555FF;'
+        case 'a': return 'color: #AA0000;'
+        case 'b': return 'color: #55FFFF;'
+        case 'c': return 'color: #FF5555;'
+        case 'd': return 'color: #FF55FF;'
+        case 'e': return 'color: #FFFF55;'
+        case 'f': return 'color: #FFFFFF;'
+        case 'l': return 'font-weight: bold'
+        case 'm': return 'text-decoration: line-through;'
+        case 'n': return 'text-decoration: underline;'
+        case 'o': return 'font-style: italic;'
+        case 'r': return 'r'
+        default: return '';
     }
 }
 
@@ -36,8 +99,10 @@ function removeVariable(num) {
     if (v) v.remove()
 }
 
-document.getElementById('btn-parse').addEventListener('click', parseHandler);
-document.getElementById('btn-add-value').addEventListener('click', addValueHandler);
+document.getElementById('parse-btn').addEventListener('click', parseHandler);
+document.getElementById('add-value-btn').addEventListener('click', addValueHandler);
+
+
 
 
 
@@ -66,7 +131,7 @@ function parseNumber(toParse) {
 }
 
 function setValue(key, value) {
-    values.put(key, value);
+    values.set(key, value);
 }
 
 function clearValues() {
@@ -147,7 +212,7 @@ function parseCode(input) {
         if (current >= 0 && current < input.length) result += input.substring(current);
         return result;
     } else {
-        return "error";
+        return input
     }
 }
 

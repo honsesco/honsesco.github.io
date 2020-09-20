@@ -1,26 +1,34 @@
 body {
+    margin: 0;
+    padding: 0;
     font-family: Arial, Helvetica, sans-serif;
-    min-width: 550px;
 }
 
 #wrapper {
-    max-width: 960px;
+    max-width: 760px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 40px 10px 0;
 }
 
-.input {
-    padding-bottom: 12px;
+.parse-btn {
+    width: 86px; 
+    float: right;
+    margin-left: 6px;
 }
 
-.input-output {
-    padding: 10px;
+.field {
+    overflow: hidden; 
 }
 
-input {
-    max-width: 600px;
-    width: 80%;
-    font-size: 16px;
+.field:after {
+    content: ''; 
+    display: block;
+    clear: both;
+} 
+
+.field input {
+    width: 100%;
+    font-size: 1rem;
     padding: 6px 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -29,54 +37,72 @@ input {
 }
 
 button {
-    padding: 8px 20px;
-    font-size: 16px;
-    margin: 4px 2px;
-    transition-duration: 0.4s;
+    padding: 7px 20px;
+    font-size: 1rem;
     cursor: pointer;
     color: #000;
     border: 2px solid #e7e7e7;
     border-radius: 3px;
 }
 
-button:hover {
-    background-color: #fff;
+.output {
+    margin-top: 16px;
 }
 
 .output p {
-    float: left;
-    margin: 0 10px 0 0;
-    padding: 10px 0;
+    padding: 9px 10px 9px 0;
+    margin: 0;
 }
 
-.variables {
-    max-width: 600px;
-    margin-left: 10px;
+.result-hint {
+    float: left;
+}
+
+.result {
+    overflow: hidden; 
+    font-size: 1rem;
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    min-height: 36px;
+}
+
+.result:after {
+    content: ' '; 
+    display: block;
 }
 
 .variables-set {
-    overflow: auto;
-    max-height: 500px;
+    margin-top: 8px;
 }
 
-[class^="variable-"] input {
-    max-width: 120px;
+#result {
+    padding: 2px 0  0px 0;
+    margin: 0;
+    word-wrap: break-word;
 }
 
-[class^="variable-"] p:nth-child(1) {
-    padding-right: 6px;
+.variable-key, .variable-value {
+    width: 120px;
+    font-size: 1rem;
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: 36px;
 }
 
-[class^="variable-"] p:nth-child(3) {
-    margin-left: 20px;
-    padding-right: 6px;
+.key, 
+.variable-value  {
+    margin-right: 10px;
 }
 
-[class^="variable-"] button {
-    padding: 8px 16px;
-    margin-left: 10px;
-}
-
-[class^="variable"] p {
+.key, 
+.value, 
+.key p, 
+.value p, 
+.variables-hint, 
+.btn-add-value {
     display: inline-block;
 }

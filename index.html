@@ -3,37 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>StringParser</title>
+    <title>Document</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div id="wrapper">
-        <div class="content">
+        <div id="content">
             <div class="input-output">
                 <div class="input">
-                    <input id="input" type="text" placeholder="Enter your text here">
-                    <button id="btn-parse">Parse</button>
+                    <div class="parse-btn">
+                        <button id="parse-btn">Parse</button>
+                    </div>
+                    <div class="field input">
+                        <input id="input" type="text" placeholder="Enter your text here">
+                    </div>
                 </div>
                 <div class="output">
-                    <p>Result:</p>
-                    <input id="output" type="text" readonly>
+                    <div class="result-hint">
+                        <p>Result:</p>
+                    </div>
+                    <div class="result">
+                        <p id="result"></p>
+                    </div>
                 </div>
             </div>
             <div class="variables">
                 <div class="variables-set">
-                    <!--
-                    <div class="variable">
-                        <p>key:</p>
-                        <input class="variable-key" type="text" placeholder="amount">
-                        <p>value:</p>
-                        <input class="variable-value" type="text" placeholder="1">
-                        <button>X</button>
-                    </div>
+                    <!-- 
+                    <div class="variable-XXX">
+                        <div class="key">
+                            <p>key:</p>
+                            <input class="variable-key" type="text" placeholder="amount">
+                        </div>
+                        <div class="value">
+                            <p>value:</p>
+                            <input class="variable-value" type="text" placeholder="1">
+                            <button>X</button>
+                        </div>
+                    </div> 
                     -->
                 </div>
                 <p class="variables-hint">You can add a new variable by clicking the button</p>
-                <button id="btn-add-value">Add Value</button>
+                <button id="add-value-btn">Add Value</button>
             </div>
         </div>
     </div>
