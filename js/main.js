@@ -65,7 +65,7 @@ function colorize(str) {
     }
     for (let i = 0; i < amountOfResets; i++) result += '</span>'
     return result;
-  }
+}
   
 function getStyleByColor(id) {
     switch(id) {
