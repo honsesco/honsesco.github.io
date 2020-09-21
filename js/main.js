@@ -1,18 +1,31 @@
 const fieldInput = document.getElementById('input')
 const fieldOutput = document.querySelector('#result')
 const variables = document.querySelector('.variables-set')
+const colorCodesSupport = document.getElementById('color-codes-support')
 let countOfValues = 1;
+let parsed = ''
 
 const parseHandler = () => {
     collectVariables()
-    let text = fieldInput.value
-    let result = parse(text.trim())
-    if (result == 'error') {
-        result = text;
+    let input = fieldInput.value
+    parsed = parse(input)
+    let result;
+    if (parsed == 'error') {
+        result = input;
+    } else if (colorCodesSupport.checked) {
+        result = colorize(parsed)
     } else {
-        result = colorize(result)
+        result = parsed
     }
     fieldOutput.innerHTML = result
+}
+
+const colorCodesSupportHandler = () => {
+    if (colorCodesSupport.checked) {
+        fieldOutput.innerHTML = colorize(parsed)
+    } else {
+        fieldOutput.innerHTML = parsed
+    }
 }
 
 const addValueHandler = () => {
@@ -65,7 +78,7 @@ function colorize(str) {
     }
     for (let i = 0; i < amountOfResets; i++) result += '</span>'
     return result;
-}
+  }
   
 function getStyleByColor(id) {
     switch(id) {
@@ -101,9 +114,7 @@ function removeVariable(num) {
 
 document.getElementById('parse-btn').addEventListener('click', parseHandler);
 document.getElementById('add-value-btn').addEventListener('click', addValueHandler);
-
-
-
+colorCodesSupport.addEventListener('click', colorCodesSupportHandler)
 
 
 
